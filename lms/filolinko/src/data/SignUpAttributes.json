@@ -1,0 +1,32 @@
+{
+  "name": {
+    "key": "name",
+    "label": "Name",
+    "placeholder": "John Smith",
+    "type": "text"
+  },
+  "email": {
+    "key": "email",
+    "label": "E-mail",
+    "placeholder": "john@smith.com",
+    "type": "email"
+  },
+  "password": {
+    "key": "password",
+    "label": "Password",
+    "placeholder": "●●●●●●●●",
+    "type": "password"
+  },
+  "gender": {
+    "key": "gender",
+    "label": "Gender",
+    "list": ["Male", "Female", "Non-binary"]
+  },
+  "code": {
+    "key": "code",
+    "label": "Authentication code",
+    "placeholder": "HODL526",
+    "type": "password",
+    "message": "You can't make an account without correct code."
+  }
+}

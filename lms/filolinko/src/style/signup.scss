@@ -1,0 +1,146 @@
+.form {
+  color: $secondary;
+  margin: 0 auto !important;
+  max-width: 350px;
+  margin-top: 48px !important;
+  padding: 0 16px !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .title {
+    text-align: right;
+    margin-bottom: 16px !important;
+  }
+}
+
+small {
+  height: 16px !important;
+  width: 100%;
+  padding-left: 4px;
+  padding-top: 4px;
+  color: $secondary;
+  margin-bottom: 8px !important;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  //text
+  input {
+    height: 44px;
+    padding: 8px !important;
+  }
+  //password
+  div {
+    border: 1px solid $primary;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    input {
+      height: 44px;
+      flex: 1;
+      padding: 8px;
+    }
+    i {
+      display: flex;
+      justify-content: center;
+      width: 15%;
+      color: $primary;
+    }
+  }
+}
+
+.select {
+  margin-top: 16px !important;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+.selected {
+  width: 100%;
+  height: 44px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 8px !important;
+  position: relative;
+  border: 1px solid $primary;
+}
+.dropdown {
+  border-bottom: 1px solid $primary;
+  border-left: 1px solid $primary;
+  border-right: 1px solid $primary;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  height: fit-content;
+  background-color: white;
+
+  .option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 8px !important;
+    height: 44px;
+  }
+  .option:hover {
+    background-color: $primary;
+  }
+}
+
+.buttons {
+  text-align: center;
+}
+.button-submit {
+  height: 44px !important;
+  width: 100%;
+  cursor: pointer;
+  background-color: $primary;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  &:hover {
+    filter: contrast(150%);
+  }
+}
+.button-link {
+  cursor: pointer;
+  border: 1px solid $primary;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    filter: blur(-50%);
+  }
+}
+
+input {
+  color: $secondary;
+  font-size: 16px;
+}
+
+.header {
+  display: grid;
+  width: 100% !important;
+
+  .image {
+    width: 100%;
+    min-width: 280px;
+    height: 100% !important;
+    max-width: 100vw;
+    background-color: $primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px !important;
+    img {
+      width: 100%;
+      margin: 0 auto !important;
+    }
+  }
+}
