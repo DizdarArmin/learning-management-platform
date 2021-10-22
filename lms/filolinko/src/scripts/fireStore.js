@@ -1,4 +1,10 @@
-import { collection, doc, getDocs } from "@firebase/firestore/lite";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  where,
+} from "@firebase/firestore/lite";
 import { addDoc, setDoc, updateDoc, getDoc } from "@firebase/firestore/lite";
 
 import { fireStoreInstance } from "./firebase";
@@ -23,7 +29,8 @@ export async function updateDocument(path, data) {
 
 export async function getCollection(path) {
   const collectionReference = collection(fireStoreInstance, path);
-  const snapshot = await getDocs(collectionReference);
+  const q = query(collectionReference, where("role", "==", "student"));
+  const snapshot = await getDocs(q);
   const list = snapshot.docs.map((doc) => {
     return { id: doc.id, ...doc.data() };
   });
@@ -34,6 +41,5 @@ export async function getCollection(path) {
 export async function getDocument(path, id) {
   const documentReference = doc(fireStoreInstance, path, id);
   const document = await getDoc(documentReference);
-
   return { id: document.id, ...document.data() };
 }

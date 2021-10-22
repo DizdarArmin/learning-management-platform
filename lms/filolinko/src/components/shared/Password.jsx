@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-export default function PasswordInput({ props }) {
+export default function Password({ props }) {
   const [password, setPassword] = useState(false);
   const [state, onChange, error, html] = props;
   const { key, label, type, placeholder } = html;

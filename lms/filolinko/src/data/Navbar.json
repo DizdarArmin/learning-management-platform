@@ -1,0 +1,8 @@
+{
+  "courses": " fas fa-2x fa-book-open",
+  "students": "fas fa-2x fa-user-graduate",
+  "home": "fas fa-3x fa-home",
+  "profile": "",
+  "calendar": "fas fa-2x fa-calendar-alt",
+  "signout": "fas fa-2x fa-sign-out-alt"
+}

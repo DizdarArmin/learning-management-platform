@@ -6,20 +6,18 @@ import Input from "./shared/Input";
 import Select from "./shared/Select";
 import Password from "./shared/Password";
 import ButtonSubmit from "./shared/ButtonSubmit";
-import { useUser } from "../state/UserProvider";
-import { useAuth } from "../state/AuthContext";
 import { createAccount } from "../scripts/authentication";
 import { createDocumentWithId } from "../scripts/fireStore";
+import { useHistory } from "react-router";
 
 export default function SignUpForm() {
-  const { signUp } = useAuth();
-  const { user, setUser, setIsLogged } = useUser();
-  const { name, email, password, gender, code } = user;
+  const [user, setUser] = useState({});
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [genderError, setGenderError] = useState("");
   const [codeError, setCodeError] = useState(HTML.code.message);
+  const history = useHistory();
 
   function onChange(key, value) {
     const field = { [key]: value };
@@ -27,27 +25,26 @@ export default function SignUpForm() {
   }
 
   async function onSuccess(uid) {
-    const newUser = { name: user.name, gender: user.gender, role: "student" };
-    await createDocumentWithId("users", uid, newUser);
-    setIsLogged(true);
-    setUser(newUser);
+    await createDocumentWithId("users", uid, user);
+    history.push("/courses");
   }
   function onFailure(message) {}
 
   async function onSubmit(event) {
     event.preventDefault();
-    console.log(user);
-    const account = await signUp(user.email, user.password);
-    /*  account.isCreated ? onSuccess(account.payload) : onFailure(account.payload); */
+    const account = await createAccount(user.email, user.password);
+    account.isCreated ? onSuccess(account.payload) : onFailure(account.payload);
   }
   return (
     <form className="form" onSubmit={onSubmit}>
       <h1 className="title">Sign up</h1>
-      <Input props={[name, onChange, nameError, HTML.name]} />
-      <Input props={[email, onChange, emailError, HTML.email]} />
-      <Password props={[password, onChange, passwordError, HTML.password]} />
-      <Input props={[code, onChange, codeError, HTML.code]} />
-      <Select props={[gender, onChange, genderError, HTML.gender]} />
+      <Input props={[user.name, onChange, nameError, HTML.name]} />
+      <Input props={[user.email, onChange, emailError, HTML.email]} />
+      <Password
+        props={[user.password, onChange, passwordError, HTML.password]}
+      />
+      <Input props={[user.code, onChange, codeError, HTML.code]} />
+      <Select props={[user.gender, onChange, genderError, HTML.gender]} />
       <div className="buttons">
         <ButtonSubmit value="Sign up" />
         <br />

@@ -1,0 +1,22 @@
+.navbar {
+  border-bottom: 1px solid $primary;
+  color: $secondary;
+  background-color: $white;
+  padding: 16px !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .left,
+  .right {
+    i {
+      padding: 8px !important;
+    }
+  }
+}
+
+i {
+  cursor: pointer;
+  &:hover {
+    color: $primary;
+  }
+}

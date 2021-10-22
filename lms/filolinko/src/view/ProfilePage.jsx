@@ -1,23 +1,48 @@
 import { logout } from "../scripts/authentication";
-import { useUser } from "../state/UserProvider";
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../state/AuthContext";
+import { getDocument } from "../scripts/fireStore";
+import { useEffect, useState } from "react";
+import useDocument from "../components/hooks/useDocument";
+import Navbar from "../components/shared/Navbar";
 
-function ProfilePage() {
-  const { user, setIsLogged } = useUser();
+import ChangePasswordForm from "../components/ChangePasswordForm";
+import Item from "../components/shared/Item";
+
+export default function ProfilePage() {
+  const [password, togglePassword] = useState(false);
+  const [profile, toggleProfile] = useState(true);
+  const { currentUser } = useAuth();
+  const { data: userData } = useDocument("users", currentUser.uid);
   const history = useHistory();
 
-  async function onLogout() {
-    const account = await logout();
-    localStorage.setItem("isLogged", false);
-    setIsLogged(false);
-    history.push("/login");
-  }
+  useEffect(() => {
+    password ? toggleProfile(false) : toggleProfile(true);
+  }, [password]);
+
+  useEffect(() => {
+    profile ? togglePassword(false) : togglePassword(true);
+  }, [profile]);
+
+  useEffect(() => {
+    const userDat = getDocument("users", currentUser.uid);
+  }, []);
+
   return (
-    <div>
-      <h1>Profile page</h1>
-      {JSON.stringify(user)}
-      <button onClick={onLogout}>Logout</button>
+    <div className="container-fluid">
+      <Navbar />
+      <div className="container">
+        <div className="header">
+          <div className="menu">
+            <h3>Hi, {userData.name}!</h3>
+            <br />
+            <Item to="Profile" icon="user-circle" activate={toggleProfile} />
+            <Item to="Change password" icon="lock" activate={togglePassword} />
+          </div>
+          {password && <ChangePasswordForm currentUser={currentUser} />}
+          {profile && <h2>Profile</h2>}
+        </div>
+      </div>
     </div>
   );
 }
-export default withRouter(ProfilePage);

@@ -1,17 +1,22 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, updatePassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from "firebase/auth";
 
 import { authInstance } from "./firebase";
 
 export async function createAccount(email, password) {
   const account = { isCreated: false, payload: "" };
-
   try {
     const userCredential = await createUserWithEmailAndPassword(
       authInstance,
       email,
       password
     );
+
     account.payload = userCredential.user.uid;
     account.isCreated = true;
   } catch (error) {
@@ -45,11 +50,42 @@ export async function logout() {
   try {
     await signOut(authInstance);
     account.isLoggout = true;
-    account.payload = "Logout successfully";
+    account.payload = "Logout successfully.";
   } catch (error) {
-    console.error("authentification.js error", error);
     account.payload = error.code;
   }
 
+  return account;
+}
+
+export async function reAuth(currentUser, currentPassword) {
+  const account = { didReauth: false, payload: "" };
+  const { email } = currentUser;
+  const credential = EmailAuthProvider.credential(email, currentPassword);
+
+  try {
+    const reauth = await reauthenticateWithCredential(currentUser, credential);
+    account.didReauth = true;
+    account.payload = "Reauthenticated";
+  } catch (error) {
+    account.payload = error.code;
+  }
+  return account;
+}
+
+export async function changePassword(
+  currentUser,
+  currentPassword,
+  newPassword
+) {
+  const account = { didPasswordChange: false, payload: "" };
+  const reauth = await reAuth(currentUser, currentPassword);
+  try {
+    const change = await updatePassword(currentUser, newPassword);
+    account.didPasswordChange = true;
+    account.payload = "Password changed successfully.";
+  } catch (error) {
+    account.payload = error.code;
+  }
   return account;
 }

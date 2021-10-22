@@ -3,6 +3,7 @@ import { useRef } from "react";
 export default function Input({ props }) {
   const [state, onChange, error, html] = props;
   const { key, label, placeholder, type } = html;
+  console.log(key);
   const ref = useRef(null);
 
   return (

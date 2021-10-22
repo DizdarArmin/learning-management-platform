@@ -1,0 +1,17 @@
+.menu {
+  padding: 48px !important;
+}
+
+.profile-link {
+  margin-bottom: 16px !important;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  font-size: 18px;
+  i {
+    padding-right: 4px !important;
+  }
+  &:hover {
+    color: $primary;
+  }
+}
