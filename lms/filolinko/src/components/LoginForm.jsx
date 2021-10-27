@@ -6,13 +6,20 @@ import Input from "./shared/Input";
 import Password from "./shared/Password";
 import ButtonSubmit from "./shared/ButtonSubmit";
 import { signIn } from "../scripts/authentication";
-import { getDocument } from "../scripts/fireStore";
+
 import { ValidateLogin } from "../scripts/validate";
 
+import Loading from "../view/Loading";
+
 export default function LoginForm() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    email: "armin.dizdar@gmail.com",
+    password: "123456789",
+  });
+
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   function onChange(key, value) {
@@ -20,24 +27,27 @@ export default function LoginForm() {
     setUser({ ...user, ...field });
   }
 
-  async function onSuccess(uid) {
-    const document = await getDocument("users", uid);
-    setUser(document);
+  function onSuccess(uid) {
+    setLoading(false);
     history.push("/courses");
   }
 
   function onFailure(message) {
+    setLoading(false);
     ValidateLogin(message, setEmailError, setPasswordError);
   }
 
   async function onSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     const account = await signIn(user.email, user.password);
     account.isLogged ? onSuccess(account.payload) : onFailure(account.payload);
   }
+
+  if (loading) return <Loading />;
   return (
     <form className="form" onSubmit={onSubmit}>
-      <h1 className="title">Login</h1>
+      <h2 className="title">Login</h2>
       <Input props={[user.email, onChange, emailError, HTML.email]} />
       <Password
         props={[user.password, onChange, passwordError, HTML.password]}

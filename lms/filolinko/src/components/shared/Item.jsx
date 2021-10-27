@@ -1,7 +1,7 @@
-export default function Item({ to, icon, activate }) {
+export default function Item({ to, icon, click }) {
   return (
-    <div className="profile-link" onClick={activate}>
-      <i className={`fas fa-2x fa-${icon}`} />
+    <div className="profile-link" onClick={click}>
+      <i className={icon} />
       {to}
     </div>
   );

@@ -1,0 +1,100 @@
+.folder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 128px;
+  height: 128px;
+  font-size: 16px;
+  margin: 8px !important;
+  i {
+    color: $primary;
+    &:hover {
+      color: $secondary;
+    }
+  }
+  small {
+    margin-top: 8px !important;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0.8;
+    width: fit-content;
+
+    font-style: italic;
+    span {
+      padding: 0 8px !important;
+    }
+  }
+
+  span {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    height: 16px;
+  }
+  div {
+    text-align: center;
+    width: 128px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    word-wrap: break-word;
+    overflow: hidden;
+    &:active {
+      width: fit-content;
+      background-color: $secondary;
+      color: white;
+    }
+  }
+}
+.courses {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div {
+      i {
+        padding-left: 16px !important;
+      }
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.folders {
+  display: grid;
+  grid-template-columns: repeat((6, 1fr));
+  align-items: center;
+}
+
+.wiggle-active {
+  animation: wiggle 2.5s infinite;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(3deg);
+  }
+  10% {
+    transform: rotate(-3deg);
+  }
+  20% {
+    transform: rotate(3deg);
+  }
+  25% {
+    transform: rotate(0deg);
+  }
+}

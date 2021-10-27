@@ -6,17 +6,19 @@ import Input from "./shared/Input";
 import Select from "./shared/Select";
 import Password from "./shared/Password";
 import ButtonSubmit from "./shared/ButtonSubmit";
-import { createAccount } from "../scripts/authentication";
+import { createAccount, getCurrentUser } from "../scripts/authentication";
 import { createDocumentWithId } from "../scripts/fireStore";
 import { useHistory } from "react-router";
+import { useAuth } from "../state/AuthContext";
 
 export default function SignUpForm() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ role: "student" });
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [genderError, setGenderError] = useState("");
   const [codeError, setCodeError] = useState(HTML.code.message);
+  const { setCurrentUser } = useAuth();
   const history = useHistory();
 
   function onChange(key, value) {
@@ -25,7 +27,10 @@ export default function SignUpForm() {
   }
 
   async function onSuccess(uid) {
-    await createDocumentWithId("users", uid, user);
+    await createDocumentWithId("users", uid, {
+      name: user.name,
+      role: user.role,
+    });
     history.push("/courses");
   }
   function onFailure(message) {}
@@ -37,7 +42,7 @@ export default function SignUpForm() {
   }
   return (
     <form className="form" onSubmit={onSubmit}>
-      <h1 className="title">Sign up</h1>
+      <h2 className="title">Sign up</h2>
       <Input props={[user.name, onChange, nameError, HTML.name]} />
       <Input props={[user.email, onChange, emailError, HTML.email]} />
       <Password

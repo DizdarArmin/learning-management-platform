@@ -20,3 +20,20 @@ i {
     color: $primary;
   }
 }
+
+.account-dropdown {
+  background-color: $white;
+  position: absolute;
+  height: fit-content;
+  top: 80px;
+  right: 25px;
+  width: 250px;
+  padding: 8px !important;
+  border-bottom: 1px solid $primary;
+  border-left: 1px solid $primary;
+  border-right: 1px solid $primary;
+  div {
+    display: flex;
+    align-items: center;
+  }
+}

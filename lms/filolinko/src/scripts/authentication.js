@@ -8,6 +8,12 @@ import {
 
 import { authInstance } from "./firebase";
 
+export async function getCurrentUser() {
+  const user = await authInstance.currentUser;
+  if (user) return user;
+  else return null;
+}
+
 export async function createAccount(email, password) {
   const account = { isCreated: false, payload: "" };
   try {
@@ -64,7 +70,7 @@ export async function reAuth(currentUser, currentPassword) {
   const credential = EmailAuthProvider.credential(email, currentPassword);
 
   try {
-    const reauth = await reauthenticateWithCredential(currentUser, credential);
+    await reauthenticateWithCredential(currentUser, credential);
     account.didReauth = true;
     account.payload = "Reauthenticated";
   } catch (error) {
@@ -79,9 +85,9 @@ export async function changePassword(
   newPassword
 ) {
   const account = { didPasswordChange: false, payload: "" };
-  const reauth = await reAuth(currentUser, currentPassword);
+  await reAuth(currentUser, currentPassword);
   try {
-    const change = await updatePassword(currentUser, newPassword);
+    await updatePassword(currentUser, newPassword);
     account.didPasswordChange = true;
     account.payload = "Password changed successfully.";
   } catch (error) {

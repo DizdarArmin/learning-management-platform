@@ -1,11 +1,12 @@
+import { collection, where, deleteDoc } from "@firebase/firestore/lite";
 import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  where,
+  addDoc,
+  setDoc,
+  updateDoc,
+  getDoc,
+  get,
 } from "@firebase/firestore/lite";
-import { addDoc, setDoc, updateDoc, getDoc } from "@firebase/firestore/lite";
+import { doc, getDocs, query, serverTimestamp } from "@firebase/firestore/lite";
 
 import { fireStoreInstance } from "./firebase";
 
@@ -17,24 +18,36 @@ export async function createDocumentWithId(path, id, data) {
 
 export async function createDocument(path, data) {
   const collectionReference = collection(fireStoreInstance, path);
-  const documentReference = await addDoc(collectionReference, data);
-
+  const withTimestamp = { createdAt: serverTimestamp(), ...data };
+  const documentReference = await addDoc(collectionReference, withTimestamp);
   return documentReference.id;
 }
 
-export async function updateDocument(path, data) {
-  const documentReference = doc(fireStoreInstance, path, data.id);
+export async function updateDocument(path, id, data) {
+  const documentReference = doc(fireStoreInstance, path, id);
   await updateDoc(documentReference, data);
 }
 
+export async function removeDocument(path, id) {
+  await deleteDoc(doc(fireStoreInstance, path, id));
+}
 export async function getCollection(path) {
   const collectionReference = collection(fireStoreInstance, path);
-  const q = query(collectionReference, where("role", "==", "student"));
+  const snapshot = await getDocs(collectionReference);
+  const list = snapshot.docs.map((doc) => {
+    return { id: doc.id, ...doc.data() };
+  });
+  return list;
+}
+
+export async function getQueryCollection(path, id) {
+  const ownerId = id.id.toString();
+  const collectionReference = collection(fireStoreInstance, path);
+  const q = query(collectionReference, where("owner", "==", ownerId));
   const snapshot = await getDocs(q);
   const list = snapshot.docs.map((doc) => {
     return { id: doc.id, ...doc.data() };
   });
-
   return list;
 }
 
