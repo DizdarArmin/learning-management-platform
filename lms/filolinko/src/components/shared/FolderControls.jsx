@@ -1,0 +1,25 @@
+import { useEffect } from "react";
+import { addCourse } from "../../scripts/crud";
+import Icons from "../../data/Icons.json";
+import { useRecoilState } from "recoil";
+import { coursesReload, coursesDelete } from "../../state/triggers";
+export default function FolderControls({ ownerID }) {
+  const [reload, setReload] = useRecoilState(coursesReload);
+  const [remove, toggleRemove] = useRecoilState(coursesDelete);
+
+  async function add() {
+    toggleRemove(false);
+    await addCourse(ownerID, reload);
+    setReload(!reload);
+  }
+
+  return (
+    <div className="controls">
+      <h3>Courses</h3>
+      <div>
+        <i onClick={add} className={Icons.add} />
+        <i onClick={() => toggleRemove(!remove)} className={Icons.remove} />
+      </div>
+    </div>
+  );
+}

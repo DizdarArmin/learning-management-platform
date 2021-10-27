@@ -1,9 +1,48 @@
 .course {
+  flex-direction: row;
   .course-top {
     width: 100%;
     height: fit-content;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+.file {
+  margin: 8px !important;
+  height: 128px;
+  width: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    height: 16px;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  div {
+    i {
+      padding: 0 16px !important;
+    }
+  }
+}
+
+.upload {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  input {
+    border: 1px solid $secondary;
+    height: 44px;
+    padding: 8px !important;
   }
 }

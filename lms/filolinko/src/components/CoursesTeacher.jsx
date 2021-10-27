@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-
+import { useRecoilState } from "recoil";
+import { coursesReload, coursesDelete } from "../state/triggers";
 import useQueryCollection from "../hooks/useQueryCollection";
 import { useAuth } from "../state/AuthContext";
 import Folder from "./shared/Folder";
-import AddRemove from "./shared/AddRemove";
+import FolderControls from "./shared/FolderControls";
 
 export default function CoursesTeacher(id) {
   const { courses, setCourses } = useAuth();
-  const [reload, triggerReload] = useState(false);
+  const [reload, setReload] = useRecoilState(coursesReload);
+  const [remove, toggleRemove] = useRecoilState(coursesDelete);
   const { collection } = useQueryCollection("courses", id, reload);
-  const [remove, toggleRemove] = useState(false);
   const [wiggle, setWiggle] = useState("");
 
   useEffect(() => {
@@ -20,21 +21,12 @@ export default function CoursesTeacher(id) {
     return b.createdAt.toString().localeCompare(a.createdAt.toString());
   });
   const Courses = courses.map((item) => (
-    <Folder
-      key={item.id}
-      item={item}
-      hook={[reload, triggerReload, remove, item]}
-    />
+    <Folder key={item.id} hook={[remove, item]} />
   ));
 
   return (
     <div className="courses">
-      <div className="top">
-        <h3>Courses</h3>
-        <AddRemove
-          hook={[id, remove, toggleRemove, setWiggle, reload, triggerReload]}
-        />
-      </div>
+      <FolderControls ownerID={id} />
       <div className="wrapper">
         <div className="folders">{Courses}</div>
       </div>

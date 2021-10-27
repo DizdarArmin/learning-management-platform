@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { getCollection } from "../scripts/fireStore";
 
-export default function useCollection(collectionName) {
+export default function useCollection(collectionName, reload) {
   const [collection, setCollection] = useState([]);
   const [collectionLoading, setLoading] = useState(false);
 
@@ -18,7 +18,7 @@ export default function useCollection(collectionName) {
 
   useEffect(() => {
     fetchData(collectionName);
-  }, [fetchData, collectionName]);
+  }, [fetchData, collectionName, reload]);
 
   return { collection, collectionLoading };
 }

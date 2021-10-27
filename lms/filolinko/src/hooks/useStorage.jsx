@@ -23,6 +23,9 @@ export default function useStorage(file) {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setProgress(Math.round(progress));
+          if (snapshot.bytesTransferred === snapshot.totalBytes) {
+            setProgress(0);
+          }
         },
         (err) => {
           setError(err);
