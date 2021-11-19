@@ -16,7 +16,7 @@
 
 small {
   height: 16px !important;
-  width: 100%;
+
   padding-left: 4px;
   padding-top: 4px;
   color: $secondary;
@@ -28,6 +28,7 @@ small {
   padding-bottom: 16px !important;
   //text
   input {
+    width: 100%;
     height: 44px;
     padding: 8px !important;
   }
@@ -43,9 +44,10 @@ small {
       padding: 8px;
     }
     i {
+      position: relative;
+      right: 10%;
       display: flex;
       justify-content: center;
-      width: 15%;
       color: $primary;
     }
   }

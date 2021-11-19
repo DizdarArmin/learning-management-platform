@@ -6,7 +6,9 @@ export default function Home() {
       <NavbarHome />
       <div className="home-container">
         <div className="header">
-          <img src={Banner} alt="learning platform banner" />
+          <div className="image">
+            <img src={Banner} alt="learning platform banner" />
+          </div>
           <div className="info">
             <h2>Learning platform</h2>
             <h3>For students and teachers.</h3>
