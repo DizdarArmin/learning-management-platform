@@ -2,17 +2,47 @@
   position: fixed;
   width: 100%;
   height: 100%;
-  opacity: 0.8;
   z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .modal-style {
   border: 1px solid $primary;
-  min-width: 280px;
+  min-width: 322px;
   max-width: 500px;
   max-height: 100%;
   background-color: white;
   padding: 16px !important;
+}
+.modal-close {
+  font-size: 24px;
+  width: 100%;
+  text-align: right;
+  position: relative;
+  left: 12px;
+  top: 12px;
+  color: $secondary;
+}
+.confirm-buttons {
+  margin-top: 24px !important;
+  display: flex;
+  .yes {
+    background-color: $secondary;
+    color: white;
+    &:hover {
+      background-color: $primary;
+      color: black;
+    }
+  }
+  .no:hover {
+    background-color: $primary;
+    color: white;
+  }
+  button {
+    cursor: pointer;
+    height: 44px;
+    flex: 1;
+  }
 }

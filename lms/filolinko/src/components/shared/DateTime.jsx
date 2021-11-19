@@ -8,7 +8,7 @@ export default function getDateTime({ timestamp }) {
   return (
     <small>
       <span>
-        {hour}:{minutes}
+        {hour}:{minutes}&nbsp;
       </span>
       <span>
         {day}.{month}.{year}

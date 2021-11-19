@@ -1,25 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import useDocument from "../hooks/useDocument";
 import useCollection from "../hooks/useCollection";
-import CourseNotFound from "./CourseNotFound";
-import UploadFile from "../components/shared/UploadFile";
-import File from "../components/shared/File";
-import FileControls from "../components/shared/FileControls";
-import { useRecoilState } from "recoil";
-import { filesDelete, filesReload } from "../state/triggers";
+import CourseNotFound from "../view/CourseNotFound";
+import { back } from "../data/Icons.json";
 
-export default function Course() {
-  const [reload, setReload] = useRecoilState(filesReload);
+import StudentFile from "../components/shared/StudentFile";
 
+export default function StudentCourse() {
   const { id } = useParams();
+  const history = useHistory();
   const [course, setCourse] = useState({});
   const [files, setFiles] = useState([]);
-  const { document, documentLoading } = useDocument("courses", id);
-
+  const { document } = useDocument("courses", id);
   const path = `/courses/${id}/files`;
-  const { collection } = useCollection(path, reload);
+  const { collection } = useCollection(path, null);
 
   useEffect(() => {
     setFiles(collection);
@@ -32,14 +28,16 @@ export default function Course() {
   if (!course) return <CourseNotFound />;
   return (
     <div className="container-fluid">
-      <div className="container padding">
+      <div className="container">
         <div className="course">
-          <FileControls course={course} />
-
+          <div className="controls">
+            <h3>{course.name}</h3>
+            <i onClick={history.goBack} className={back} />
+          </div>
           <div className="wrapper">
             <div className="folders">
               {files.map((item) => (
-                <File key={item.id} hook={[item, id]} />
+                <StudentFile key={item.id} hook={[item, id]} />
               ))}
             </div>
           </div>

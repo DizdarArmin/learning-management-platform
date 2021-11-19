@@ -1,0 +1,14 @@
+{
+  "name": {
+    "label": "Name",
+    "placeholder": "The Pragmatic Programmer",
+    "type": "text",
+    "required": true
+  },
+  "link": {
+    "label": "Link",
+    "placeholder": "https://www.pluralsight.com/paths/javascript-core-language",
+    "type": "text",
+    "required": false
+  }
+}

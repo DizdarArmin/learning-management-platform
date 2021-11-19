@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
   getStorage,
   ref,
@@ -11,11 +11,13 @@ export default function useStorage(file) {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
+  const [reference, setReference] = useState(null);
 
   const storage = getStorage(firebaseInstance);
   useEffect(async () => {
     if (file) {
       const storageRef = ref(storage, file.name);
+      setReference(storageRef);
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
         "state_changed",
@@ -39,5 +41,5 @@ export default function useStorage(file) {
     }
   }, [file]);
 
-  return { url, progress };
+  return { url, progress, error, reference };
 }

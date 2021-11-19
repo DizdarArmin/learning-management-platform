@@ -1,9 +1,9 @@
 export default function CourseNotFound() {
   return (
-    <div className="container-fluid">
-      <div className="container">
+    <div className="home">
+      <div className="home-container">
         <div className="center">
-          <div className="wrapper">
+          <div className="not-found">
             <h1>404</h1>
             <h3>Course not found.</h3>
           </div>

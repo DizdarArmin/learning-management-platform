@@ -1,7 +1,8 @@
 .navbar {
+  min-width: 280px;
   border-bottom: 1px solid $primary;
-  color: $secondary;
-  background-color: $white;
+  color: $white;
+  background-color: $secondary;
   padding: 16px !important;
   width: 100%;
   display: flex;
@@ -22,7 +23,7 @@ i {
 }
 
 .account-dropdown {
-  background-color: $white;
+  background-color: $secondary;
   position: absolute;
   height: fit-content;
   top: 80px;

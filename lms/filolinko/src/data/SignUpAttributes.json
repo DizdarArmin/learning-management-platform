@@ -25,8 +25,7 @@
   "code": {
     "key": "code",
     "label": "Authentication code",
-    "placeholder": "HODL526",
-    "type": "password",
-    "message": "You can't make an account without correct code."
+    "placeholder": "NOVARE2021",
+    "type": "text"
   }
 }

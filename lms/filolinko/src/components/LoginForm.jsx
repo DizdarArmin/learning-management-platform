@@ -2,16 +2,16 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import HTML from "../data/SignUpAttributes.json";
-import Input from "./shared/Input";
 import Password from "./shared/Password";
 import ButtonSubmit from "./shared/ButtonSubmit";
 import { signIn } from "../scripts/authentication";
 
 import { ValidateLogin } from "../scripts/validate";
-
-import Loading from "../view/Loading";
+import Input from "./shared/Input";
 
 export default function LoginForm() {
+  const [email, setEmail] = useState("teacher@filolinko.com");
+  const [password, setPassword] = useState("123456789");
   const [user, setUser] = useState({
     email: "armin.dizdar@gmail.com",
     password: "123456789",
@@ -19,7 +19,6 @@ export default function LoginForm() {
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   function onChange(key, value) {
@@ -28,36 +27,36 @@ export default function LoginForm() {
   }
 
   function onSuccess(uid) {
-    setLoading(false);
     history.push("/courses");
   }
 
   function onFailure(message) {
-    setLoading(false);
     ValidateLogin(message, setEmailError, setPasswordError);
   }
 
   async function onSubmit(event) {
     event.preventDefault();
-    setLoading(true);
-    const account = await signIn(user.email, user.password);
+    const account = await signIn(email, password);
     account.isLogged ? onSuccess(account.payload) : onFailure(account.payload);
   }
 
-  if (loading) return <Loading />;
   return (
     <form className="form" onSubmit={onSubmit}>
       <h2 className="title">Login</h2>
-      <Input props={[user.email, onChange, emailError, HTML.email]} />
-      <Password
-        props={[user.password, onChange, passwordError, HTML.password]}
-      />
+      <Input hook={[email, setEmail, HTML.email]} />
+      <Password hook={[password, setPassword, HTML.password]} />
 
-      <div className="buttons">
+      <div className="buttons-credentials">
         <ButtonSubmit value="Login" />
-        <br />
-        <p>Don't have an account?</p>
-        <Link to="/register">Sign up</Link>
+        <div>
+          Don't have an account? &nbsp;
+          <Link to="/register">Sign up</Link>
+        </div>
+
+        <div>
+          Forgot password? &nbsp;
+          <Link to="/recover">Recover</Link>
+        </div>
       </div>
     </form>
   );

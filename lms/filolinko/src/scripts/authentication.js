@@ -1,15 +1,11 @@
 import { createUserWithEmailAndPassword, updatePassword } from "firebase/auth";
-import {
-  signInWithEmailAndPassword,
-  signOut,
-  reauthenticateWithCredential,
-  EmailAuthProvider,
-} from "firebase/auth";
-
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
+import { sendPasswordResetEmail } from "@firebase/auth";
 import { authInstance } from "./firebase";
 
 export async function getCurrentUser() {
-  const user = await authInstance.currentUser;
+  const user = authInstance.currentUser;
   if (user) return user;
   else return null;
 }
@@ -92,6 +88,19 @@ export async function changePassword(
     account.payload = "Password changed successfully.";
   } catch (error) {
     account.payload = error.code;
+  }
+  return account;
+}
+
+export async function recover(email) {
+  const account = { didReset: false, payload: "" };
+
+  try {
+    await sendPasswordResetEmail(authInstance, email);
+    account.payload = `{Password reset link sent to ${email}}`;
+    account.didReset = true;
+  } catch (error) {
+    account.payload = error.message;
   }
   return account;
 }

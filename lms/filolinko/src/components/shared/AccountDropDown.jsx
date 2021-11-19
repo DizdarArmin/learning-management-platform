@@ -3,10 +3,14 @@ import { useHistory } from "react-router-dom";
 
 import { logout } from "../../scripts/authentication";
 import { signout, account, up, down } from "../../data/Icons.json";
+
 import Item from "./Item";
+import Modal from "./Modal";
+import Confirm from "./Confirm";
 
 export default function AccountDropDown() {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [modal, setShowModal] = useState(false);
   const history = useHistory();
 
   function toggleDropdown() {
@@ -17,15 +21,11 @@ export default function AccountDropDown() {
     history.push("/profile");
   }
   async function onLogout() {
-    const confirm = window.confirm("Are you sure you want to logout?");
-    if (confirm) {
-      await logout();
-      setShowDropdown(!showDropdown);
-      history.push("/login");
-    } else {
-      return null;
-    }
+    await logout();
+
+    history.push("/login");
   }
+
   return (
     <span onClick={toggleDropdown}>
       {showDropdown && <i className={up} />}
@@ -33,9 +33,12 @@ export default function AccountDropDown() {
       {showDropdown && (
         <div className="account-dropdown">
           <Item to="Account settings" icon={account} click={toAccount} />
-          <Item to="Sign out" icon={signout} click={onLogout} />
+          <Item to="Sign out" icon={signout} click={() => setShowModal(true)} />
         </div>
       )}
+      <Modal hook={[modal, setShowModal]}>
+        <Confirm value="logout" yes={onLogout} no={() => setShowModal(false)} />
+      </Modal>
     </span>
   );
 }

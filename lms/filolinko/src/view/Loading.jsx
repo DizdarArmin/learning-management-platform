@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="container-fluid">
+    <div className="">
       <div className="loading">
         <div className="brand-text">
           <h1>Filolinko</h1>

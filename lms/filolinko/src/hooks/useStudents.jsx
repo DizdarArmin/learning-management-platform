@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { getQueryCollection } from "../scripts/fireStore";
+import { getStudents } from "../scripts/fireStore";
 
-export default function useQueryCollection(collectionName, id, reload) {
+export default function useStudents(collectionName, role, reload) {
   const [collection, setCollection] = useState([]);
   const [collectionLoading, setLoading] = useState(false);
 
-  const fetchData = useCallback(async (path, id) => {
+  const fetchData = useCallback(async (path, role) => {
     try {
-      const data = await getQueryCollection(path, id);
+      const data = await getStudents(path, role);
       setCollection(data);
       setLoading(true);
     } catch (error) {
@@ -17,8 +17,8 @@ export default function useQueryCollection(collectionName, id, reload) {
   }, []);
 
   useEffect(() => {
-    fetchData(collectionName, id);
-  }, [fetchData, collectionName, id, reload]);
+    fetchData(collectionName, role);
+  }, [fetchData, collectionName, role, reload]);
 
   return { collection, collectionLoading };
 }

@@ -2,10 +2,11 @@ import { createDocument } from "./fireStore";
 import { removeDocument } from "./fireStore";
 import { removeFile } from "./storage";
 
-export async function addCourse(id) {
+export async function addCourse(id, name) {
   await createDocument("courses", {
     name: "Untitled course",
-    owner: id.id,
+    by: name,
+    owner: id,
   });
 }
 

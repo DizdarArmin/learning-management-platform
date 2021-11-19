@@ -1,11 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-export default function Password({ props }) {
+export default function Password({ hook }) {
   const [password, setPassword] = useState(false);
-  const [state, onChange, error, html] = props;
-  const { key, label, type, placeholder } = html;
-
-  const ref = useRef(null);
+  const [state, setState, html] = hook;
+  const { label, type, placeholder } = html;
 
   let localType = type;
   let icon = "fas fa-eye";
@@ -21,16 +19,15 @@ export default function Password({ props }) {
       {label}
       <div>
         <input
-          onChange={() => onChange(key, ref.current.value)}
+          autoComplete="true"
+          onChange={(event) => setState(event.target.value)}
           value={state}
-          ref={ref}
           required
           type={localType}
           placeholder={placeholder}
         />
         <i onClick={() => setPassword(!password)} className={icon} />
       </div>
-      <small>{error}</small>
     </label>
   );
 }

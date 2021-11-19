@@ -11,7 +11,6 @@ export default function useDocument(collection, documentId, reload) {
       const data = await getDocument(path, doc);
       setDocument(data);
     } catch (error) {
-      console.log(error);
     } finally {
       setLoading(false);
     }

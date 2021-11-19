@@ -3,13 +3,17 @@ import { addCourse } from "../../scripts/crud";
 import Icons from "../../data/Icons.json";
 import { useRecoilState } from "recoil";
 import { coursesReload, coursesDelete } from "../../state/triggers";
-export default function FolderControls({ ownerID }) {
+
+export default function FolderControls({ data }) {
   const [reload, setReload] = useRecoilState(coursesReload);
   const [remove, toggleRemove] = useRecoilState(coursesDelete);
 
+  useEffect(() => {
+    toggleRemove(false);
+  }, []);
   async function add() {
     toggleRemove(false);
-    await addCourse(ownerID, reload);
+    await addCourse(data.id, data.name);
     setReload(!reload);
   }
 

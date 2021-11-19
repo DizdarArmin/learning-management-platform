@@ -36,9 +36,18 @@ export async function getCollection(path) {
 }
 
 export async function getQueryCollection(path, id) {
-  const ownerId = id.id.toString();
   const collectionReference = collection(fireStoreInstance, path);
-  const q = query(collectionReference, where("owner", "==", ownerId));
+  const q = query(collectionReference, where("owner", "==", id.toString()));
+  const snapshot = await getDocs(q);
+  const list = snapshot.docs.map((doc) => {
+    return { id: doc.id, ...doc.data() };
+  });
+  return list;
+}
+
+export async function getStudents(path, role) {
+  const collectionReference = collection(fireStoreInstance, path);
+  const q = query(collectionReference, where("role", "==", role.toString()));
   const snapshot = await getDocs(q);
   const list = snapshot.docs.map((doc) => {
     return { id: doc.id, ...doc.data() };

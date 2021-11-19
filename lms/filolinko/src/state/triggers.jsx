@@ -19,7 +19,7 @@ export const filesReload = atom({
 });
 
 export const filesDelete = atom({
-  key: "coursesDelete",
+  key: "filesDelete",
   default: false,
   dangerouslyAllowMutability: true,
 });

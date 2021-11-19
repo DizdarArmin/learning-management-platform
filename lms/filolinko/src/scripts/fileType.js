@@ -1,6 +1,12 @@
 import Icons from "../data/Icons.json";
 
 export function FileType(type) {
+  if (type.includes("wordprocess")) {
+    return Icons.doc;
+  }
+  if (type.includes("sheet")) {
+    return Icons.xcl;
+  }
   switch (type) {
     case "image/png":
     case "image/gif":
@@ -22,7 +28,8 @@ export function FileType(type) {
     case "audio/flac":
     case "audio/wav":
       return Icons.audio;
-
+    case "link":
+      return Icons.link;
     default:
       return Icons.unknown;
   }

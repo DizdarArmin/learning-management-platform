@@ -1,24 +1,18 @@
-import { useRef } from "react";
-
-export default function Input({ props }) {
-  const [state, onChange, error, html] = props;
-  const { key, label, placeholder, type } = html;
-  const ref = useRef(null);
-
+export default function Input({ hook }) {
+  const [state, onChange, html] = hook;
+  const { label, placeholder, type, required } = html;
   return (
     <label className="input">
       {label}
       <div>
         <input
-          onChange={() => onChange(key, ref.current.value)}
+          onChange={(e) => onChange(e.target.value)}
           value={state}
-          ref={ref}
           placeholder={placeholder}
           type={type}
-          required
+          required={required}
         />
       </div>
-      <small>{error}</small>
     </label>
   );
 }

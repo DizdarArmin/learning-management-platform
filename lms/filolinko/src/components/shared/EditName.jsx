@@ -2,6 +2,8 @@ import { useState } from "react";
 import { updateDocument } from "../../scripts/fireStore";
 import { useRecoilState } from "recoil";
 import { coursesReload } from "../../state/triggers";
+import HTML from "../../data/SignUpAttributes.json";
+import Input from "./Input";
 export default function EditName({ hook }) {
   const [reload, setReload] = useRecoilState(coursesReload);
   const [item, modal, setShowModal] = hook;
@@ -22,23 +24,16 @@ export default function EditName({ hook }) {
     }
   }
   return (
-    <form onSubmit={(e) => updateName(e)}>
-      <label className="input">
-        Edit name
-        <div>
-          <input
-            autoFocus
-            onChange={(e) => setNewName(e.target.value)}
-            value={newName}
-            type="text"
-            required
-          />
-        </div>
-        <small>{error}</small>
-      </label>
-      <button type="submit" className="button-submit">
-        Update
-      </button>
+    <form onSubmit={updateName}>
+      <Input hook={[newName, setNewName, HTML.name]} />
+      <div className="buttons">
+        <button type="submit" className="button-submit">
+          Update
+        </button>
+        <button onClick={() => setShowModal(false)} className="button-cancel">
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }

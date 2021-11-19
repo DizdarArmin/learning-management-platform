@@ -1,5 +1,5 @@
-import CoursesTeacher from "../components/CoursesTeacher";
-import CoursesStudent from "../components/CoursesStudent";
+import TeacherCourses from "../components/TeacherCourses";
+import StudentCourses from "../components/StudentCourses";
 import { useAuth } from "../state/AuthContext";
 export default function Courses() {
   const { userData } = useAuth();
@@ -7,8 +7,8 @@ export default function Courses() {
   return (
     <div className="container-fluid">
       <div className="container padding">
-        {userData.role === "teacher" && <CoursesTeacher id={userData.id} />}
-        {userData.role === "student" && <CoursesStudent />}
+        {userData.role === "teacher" && <TeacherCourses id={userData.id} />}
+        {userData.role === "student" && <StudentCourses />}
       </div>
     </div>
   );

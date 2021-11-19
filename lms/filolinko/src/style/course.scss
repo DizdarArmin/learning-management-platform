@@ -25,24 +25,74 @@
 }
 
 .controls {
+  padding: 16px !important;
   display: flex;
   justify-content: space-between;
+  h3 {
+    height: fit-content;
+    flex: 2;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
   div {
     i {
-      padding: 0 16px !important;
+      padding: 0 4px !important;
     }
   }
 }
 
 .upload {
-  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 280px;
-  input {
-    border: 1px solid $secondary;
-    height: 44px;
-    padding: 8px !important;
+  min-height: 414px;
+  h3,
+  i {
+    text-align: center;
+    color: $secondary;
   }
+  .item {
+    margin: 0 auto !important;
+    height: fit-content;
+  }
+}
+.students {
+  margin: 0 auto !important;
+  min-width: 280px;
+  width: 500px;
+}
+.student {
+  border-bottom: 1px solid $secondary;
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-file {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.item {
+  align-self: center;
+}
+
+.progress-wrap {
+  height: 24px;
+}
+
+.complete span {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.complete span {
+  color: green;
+  font-size: 18px;
 }

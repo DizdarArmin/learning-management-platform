@@ -21,7 +21,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="container-fluid texture">
+    <div className="container-fluid">
       <div className="container">
         <div className="padding">
           <h3>Hi, {userData.name}!</h3>

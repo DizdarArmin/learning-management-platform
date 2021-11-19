@@ -3,58 +3,60 @@ import { Link } from "react-router-dom";
 
 import HTML from "../data/SignUpAttributes.json";
 import Input from "./shared/Input";
-import Select from "./shared/Select";
 import Password from "./shared/Password";
 import ButtonSubmit from "./shared/ButtonSubmit";
-import { createAccount, getCurrentUser } from "../scripts/authentication";
+import { createAccount } from "../scripts/authentication";
 import { createDocumentWithId } from "../scripts/fireStore";
 import { useHistory } from "react-router";
-import { useAuth } from "../state/AuthContext";
+import useDocument from "../hooks/useDocument";
 
-export default function SignUpForm() {
-  const [user, setUser] = useState({ role: "student" });
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [genderError, setGenderError] = useState("");
-  const [codeError, setCodeError] = useState(HTML.code.message);
-  const { setCurrentUser } = useAuth();
+export default function SingUpForm() {
   const history = useHistory();
-
-  function onChange(key, value) {
-    const field = { [key]: value };
-    setUser({ ...user, ...field });
-  }
+  const { document } = useDocument("auth", "code");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
 
   async function onSuccess(uid) {
     await createDocumentWithId("users", uid, {
-      name: user.name,
-      role: user.role,
+      name: name,
+      role: "student",
     });
     history.push("/courses");
   }
-  function onFailure(message) {}
+  function onFailure(message) {
+    setError(message);
+  }
 
   async function onSubmit(event) {
     event.preventDefault();
-    const account = await createAccount(user.email, user.password);
-    account.isCreated ? onSuccess(account.payload) : onFailure(account.payload);
+    if (code === document.code) {
+      setError("");
+      const account = await createAccount(email, password);
+      account.isCreated
+        ? onSuccess(account.payload)
+        : onFailure(account.payload);
+    } else {
+      setError("Wrong authentication code.");
+    }
   }
   return (
     <form className="form" onSubmit={onSubmit}>
       <h2 className="title">Sign up</h2>
-      <Input props={[user.name, onChange, nameError, HTML.name]} />
-      <Input props={[user.email, onChange, emailError, HTML.email]} />
-      <Password
-        props={[user.password, onChange, passwordError, HTML.password]}
-      />
-      <Input props={[user.code, onChange, codeError, HTML.code]} />
-      <Select props={[user.gender, onChange, genderError, HTML.gender]} />
-      <div className="buttons">
+
+      <Input hook={[name, setName, HTML.name]} />
+      <Input hook={[email, setEmail, HTML.email]} />
+      <Password hook={[password, setPassword, HTML.password]} />
+      <Input hook={[code, setCode, HTML.code]} />
+      <small>{error}</small>
+      <div className="buttons-credentials">
         <ButtonSubmit value="Sign up" />
-        <br />
-        <p>Already have an account?</p>
-        <Link to="/login">Log in</Link>
+        <div>
+          <p>Already have an account?</p>
+          <Link to="/login">Log in</Link>
+        </div>
       </div>
     </form>
   );

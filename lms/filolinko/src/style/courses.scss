@@ -1,12 +1,15 @@
-.folder {
+.item {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   width: 128px;
   height: 128px;
   font-size: 16px;
   margin: 8px !important;
+  a {
+    text-decoration: underline;
+  }
   i {
     color: $secondary;
     &:hover {
@@ -33,21 +36,6 @@
     display: flex;
     justify-content: flex-end;
     height: 16px;
-  }
-  div {
-    text-align: center;
-    width: 128px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    word-wrap: break-word;
-    overflow: hidden;
-    &:active {
-      width: fit-content;
-      background-color: $secondary;
-      color: white;
-    }
   }
 }
 .courses {
@@ -80,6 +68,48 @@
   align-items: center;
 }
 
+.item-name {
+  text-align: center;
+  width: 128px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  word-wrap: break-word;
+  overflow: hidden;
+  &:active {
+    width: fit-content;
+    background-color: $secondary;
+    color: white;
+  }
+}
+
+.buttons-credentials {
+  height: fit-content;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  div {
+    margin-top: 16px !important;
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+.buttons {
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+.button-cancel {
+  width: 144px;
+  align-self: flex-start;
+  height: 44px;
+  cursor: pointer;
+  &:hover {
+    background-color: $primary;
+  }
+}
 .wiggle-active {
   animation: wiggle 2.5s infinite;
 }
@@ -97,4 +127,9 @@
   25% {
     transform: rotate(0deg);
   }
+}
+
+.not-found {
+  text-align: center;
+  width: 100%;
 }
