@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 
 import useDocument from "../hooks/useDocument";
 import useCollection from "../hooks/useCollection";
-import CourseNotFound from "../view/CourseNotFound";
 
 import File from "./shared/File";
 import FileControls from "./shared/FileControls";

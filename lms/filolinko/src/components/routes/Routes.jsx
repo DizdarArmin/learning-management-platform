@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import PrivateRoute from "./PrivateRoute";
 import RoleRoute from "./RoleRoute";
-import { Route } from "react-router";
 
 import Navbar from "../shared/Navbar";
 import Profile from "../../view/Profile";
 import Students from "../../view/Students";
 import Loading from "../../view/Loading";
-import CourseNotFound from "../../view/CourseNotFound";
 
 import { useAuth } from "../../state/AuthContext";
 import useDocument from "../../hooks/useDocument";
@@ -15,7 +13,6 @@ import StudentCourse from "../StudentCourse";
 import TeacherCourse from "../TeacherCourse";
 import TeacherCourses from "../TeacherCourses";
 import StudentCourses from "../StudentCourses";
-import Recover from "../../view/Recover";
 
 export default function Routes() {
   const { currentUser, userData, setUserData } = useAuth();

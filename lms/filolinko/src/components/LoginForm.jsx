@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import HTML from "../data/SignUpAttributes.json";
+import Input from "./shared/Input";
 import Password from "./shared/Password";
 import ButtonSubmit from "./shared/ButtonSubmit";
 import { signIn } from "../scripts/authentication";
-
 import { ValidateLogin } from "../scripts/validate";
-import Input from "./shared/Input";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");

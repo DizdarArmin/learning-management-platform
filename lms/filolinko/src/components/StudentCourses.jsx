@@ -1,14 +1,10 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-
-import { coursesReload } from "../state/triggers";
 import useCollection from "../hooks/useCollection";
 import { useAuth } from "../state/AuthContext";
 import Loading from "../view/Loading";
 import FolderStudent from "./shared/FolderStudent";
 
 export default function StudentCourses() {
-  const [reload] = useRecoilState(coursesReload);
   const { courses, setCourses } = useAuth();
 
   const { collection, collectionLoading } = useCollection("courses", null);
