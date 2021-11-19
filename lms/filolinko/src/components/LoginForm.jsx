@@ -10,21 +10,11 @@ import { ValidateLogin } from "../scripts/validate";
 import Input from "./shared/Input";
 
 export default function LoginForm() {
-  const [email, setEmail] = useState("teacher@filolinko.com");
-  const [password, setPassword] = useState("123456789");
-  const [user, setUser] = useState({
-    email: "armin.dizdar@gmail.com",
-    password: "123456789",
-  });
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const history = useHistory();
-
-  function onChange(key, value) {
-    const field = { [key]: value };
-    setUser({ ...user, ...field });
-  }
 
   function onSuccess(uid) {
     history.push("/courses");
@@ -35,6 +25,8 @@ export default function LoginForm() {
   }
 
   async function onSubmit(event) {
+    setEmailError("");
+    setPasswordError("");
     event.preventDefault();
     const account = await signIn(email, password);
     account.isLogged ? onSuccess(account.payload) : onFailure(account.payload);
@@ -46,6 +38,11 @@ export default function LoginForm() {
       <Input hook={[email, setEmail, HTML.email]} />
       <Password hook={[password, setPassword, HTML.password]} />
 
+      <div className="error">
+        {emailError}
+        <br />
+        {passwordError}
+      </div>
       <div className="buttons-credentials">
         <ButtonSubmit value="Login" />
         <div>
