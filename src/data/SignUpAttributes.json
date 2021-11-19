@@ -1,0 +1,13 @@
+{
+  "name": { "label": "Name", "placeholder": "John Smith", "type": "text" },
+  "email": {
+    "label": "E-mail",
+    "placeholder": "john@smith.com",
+    "type": "email"
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "●●●●●●●●",
+    "type": "password"
+  }
+}
